@@ -1,1 +1,35 @@
-
+// This function should return head to the DLL
+class Solution
+{
+    public: 
+    //Function to convert binary tree to doubly linked list and return it.
+    Node* solve(Node* root,Node** head,Node** tail){
+        if(!root) return NULL;
+        
+        solve(root->left,head,tail);
+        
+        if(*head==NULL)
+        {*head=root;
+        *tail=root;}
+        else{
+         (*tail)->right=root;
+         (*tail)->right->left=*tail;
+         *tail=(*tail)->right;
+        }
+        
+        solve(root->right,head,tail);    
+        
+        return root;
+    }
+    Node * bToDLL(Node *root)
+    {
+        if(!root) return NULL;
+        
+        Node *head=NULL;
+        Node *tail=NULL;
+        
+        solve(root,&head,&tail);
+        
+        return head;
+    }
+};
