@@ -1,1 +1,20 @@
+class Solution
+{
+    public:
+    //Function to return the diameter of a Binary Tree.
+    int solve(Node* root,int* d){
+        if(!root) return 0;
+        int l=solve(root->left,d);
+        int r=solve(root->right,d);
+        if(l+r+1>*d)
+         *d=l+r+1;
+        return 1+max(l,r);
+    }
+    int diameter(Node* root)
+    {
+        int d=0;
+        solve(root,&d);
+        return d;
+    }
 
+};
