@@ -1,0 +1,19 @@
+void solve(Node* root,vector<vector<int>> &ans,vector<int> v){
+    if(!root) return;
+    else{
+        v.push_back(root->data);
+        if(root->left==NULL&&root->right==NULL){
+            ans.push_back(v);
+        }
+        solve(root->left,ans,v);
+        solve(root->right,ans,v);
+    }
+    return ;
+}
+vector<vector<int>> Paths(Node* root)
+{
+    vector<vector<int>> ans;
+    vector<int> v;
+    solve(root,ans,v);
+    return ans;
+}
