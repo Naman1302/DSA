@@ -1,0 +1,20 @@
+void solve(TreeNode* A,int b,vector<vector<int>> &ans,vector<int> v,int fs){
+     if(!A) return;
+     v.push_back(A->val);
+     if(!A->right&&!A->left){
+         if(fs+A->val==b){
+            ans.push_back(v); 
+         }
+         else{
+             v.pop_back();
+         }
+     }
+    solve(A->left,b,ans,v,fs+A->val);
+    solve(A->right,b,ans,v,fs+A->val);
+ }
+vector<vector<int> > Solution::pathSum(TreeNode* A, int B) {
+    vector<int> v;
+    vector<vector<int>> ans;
+    solve(A,B,ans,v,0);
+    return ans;
+}
