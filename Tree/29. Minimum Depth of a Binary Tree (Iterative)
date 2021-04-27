@@ -1,0 +1,28 @@
+class Solution{
+  public:
+    /*You are required to complete this method*/
+    int minDepth(Node *root) {
+        queue<Node*> q;
+        q.push(root);
+        int level=1;
+        bool b=false;
+        while(!q.empty()){
+            int s=q.size();
+            while(s--){
+                Node *curr=q.front();
+                q.pop();
+                if(curr->left)
+                    q.push(curr->left);
+                if(curr->right)
+                    q.push(curr->right);
+                if(!curr->right&&!curr->left){
+                    b=true;
+                    break;
+                }   
+            }
+            if(b) break;
+            level++;   
+        }
+        return level;
+    }
+};
