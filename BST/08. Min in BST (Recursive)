@@ -1,12 +1,7 @@
 int minValue(Node* root)
 {
-    if(!root->left&&!root->right){
-        return root->data;
-    }
-    if(root->left){
-        return minValue(root->left);
-    }
-    else if(root->right){
-        return min(root->data,minValue(root->right));
-    }
+    while (root->left!=NULL) {
+            root = root->left;
+      }
+    return root->data;
 }
