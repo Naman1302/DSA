@@ -1,0 +1,21 @@
+int solve(Node* root,int n,int &m){
+    if(!root->left&&!root->right){
+        if(root->key<=n)
+        return max(m,root->key);
+        else
+        return m;
+    }
+    if(root->key<=n){
+        m=max(m,root->key);
+        return solve(root->right,n,m);
+    }
+    else if(root->key>n){
+        return solve(root->left,n,m);
+    }
+}  
+int findMaxForN(Node* root, int N)
+{
+    if(!root) return INT_MIN;
+    int m=INT_MIN;
+    return solve(root,N,m);
+}
