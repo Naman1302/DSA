@@ -1,0 +1,14 @@
+void solve(Node* root,int *pre)
+{
+      if(!root) return ;
+      solve(root->right,pre);
+      *pre+=root->data;
+      root->data=*pre;
+      solve(root->left,pre);
+}
+Node* modify(Node *root)
+{
+    int pre=0;
+    solve(root,&pre);
+    return root;
+}
