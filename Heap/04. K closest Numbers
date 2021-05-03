@@ -1,0 +1,34 @@
+#define pi pair<int,int>
+class Solution{   
+public:
+    vector<int> printKClosest(vector<int> a, int n, int k, int x) {
+        priority_queue<pi> maxh;
+        for(int i=0;i<n;i++){
+            if(a[i]!=x){
+                maxh.push(make_pair((abs(x-a[i])),a[i]));
+                
+                if(maxh.size()>k)
+                    maxh.pop();
+            }    
+        }
+        vector<int>ans;
+        pi temp;
+        while(!maxh.empty()){
+            temp=maxh.top();
+            maxh.pop();
+            
+        if(ans.size()!=0&&(abs(temp.second-x)==abs(ans.back()-x)))
+            {
+                int p;
+                p=ans.back();
+                ans.pop_back();
+                ans.push_back(temp.second);
+                ans.push_back(p);
+            }
+        else
+            ans.push_back(temp.second);
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+    }
+};
