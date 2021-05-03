@@ -1,0 +1,18 @@
+vector<int> topK(vector<int> &A,int k){
+     unorderd_map<int,int> mp;
+     for(int i=0;i<A.size();i++){
+         mp(A[i])++;
+     }
+     vector<int>ans;
+     priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minh;
+     for(auto i=mp.begin();i!=mp.end();i++){
+         minh.push({i->second,i->first});
+         if(minh.size()>k)
+             minh.pop();
+     }
+     while(!minh.empty()){
+          ans.push_back(minh.top().second);
+          minh.pop();
+     }
+     return ans;
+}
