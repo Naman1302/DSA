@@ -1,0 +1,16 @@
+int Solution::nchoc(int A, vector<int> &B) {
+    priority_queue<int> maxh;
+    for(int i=0;i<B.size();i++){
+        maxh.push(B[i]);
+    }
+    long long sum=0;
+    int mod=1000000007;
+    while(A--){
+        int t=maxh.top();
+        sum=(sum%mod+(t%mod))%mod;
+        t=floor(t/2);
+        maxh.pop();
+        maxh.push(t);
+    }   
+    return sum;
+}
