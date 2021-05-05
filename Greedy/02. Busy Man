@@ -1,0 +1,29 @@
+https://www.spoj.com/problems/BUSYMAN/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		vector<pair<int,int>> v;
+		for(int i=0;i<n;i++){
+			int p,q;
+			cin>>p>>q;
+			v.push_back(make_pair(q,p));
+		}
+		sort(v.begin(),v.end());
+		int task=0,end_time=0;
+		for(int i=0;i<n;i++){
+			if(endtime<=v[i].second){
+				end_time+=v[i].first;
+				task++;
+			}
+		}
+		cout<<task<<endl;
+	}
+	return 0;
+}
