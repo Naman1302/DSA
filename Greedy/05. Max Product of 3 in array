@@ -1,0 +1,20 @@
+https://www.interviewbit.com/problems/highest-product/
+
+//Basic approach is brute force which is O(n^3) but it takes recomputation of certain values again and computation of not usable values
+//second is by dp it is...
+//or we can have greedy which says if we sort the array and if it's all positive then last 3 will give ans or if it has negative then last 2*greatest,i.e. max +ve * min -ve or 
+  it is the max -ve * top two max +ve
+ 
+ int Solution::maxp3(vector<int> &A) {
+    int n=A.size();
+    if(n<3) return 0;
+    sort(A.begin(),A.end());
+    long long int last3=A[n-1]*A[n-2]*A[n-3]; //Last ke 3 always greatest if all are +ve
+    long long int last2=A[0]*A[n-1]*A[n-2];  // Last ke 2 aur shru ka ek if negative exists in A
+    long long int last1=A[0]*A[1]*A[n-1];   //  First two most -ve And last +ve
+    long long int ans;
+    ans=max(last3,last2);
+    ans=max(last1,ans);
+    return ans;
+    
+}
