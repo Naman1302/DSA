@@ -1,0 +1,32 @@
+https://www.interviewbit.com/problems/meeting-rooms/
+
+https://www.youtube.com/watch?v=38JLfQGVlkw&ab_channel=TECHDOSE
+
+int Solution::solve(vector<vector<int> > &A) {
+    vector<int> start;
+    vector<int> e;
+    for(int i=0;i<A.size();i++){
+        start.push_back(A[i][0]);
+        e.push_back(A[i][1]);
+    }
+    
+    sort(start.begin(),start.end());
+    sort(e.begin(),e.end());
+    
+    int max_room=1,req=1;
+    int i=1,j=0;
+    
+    while(i<start.size()&&j<e.size()){
+        if(e[j]>start[i]){
+            max_room++;
+            i++;
+        }
+        else if(e[j]<=start[i]){
+            max_room--;
+            j++;
+        }
+        req = max(req,max_room);
+    }
+    
+    return req;
+}    
