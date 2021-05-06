@@ -1,0 +1,35 @@
+https://leetcode.com/problems/gas-station/submissions/
+
+Observation 1
+In order to have a circle, total gas has to be greater than or equal to total cost (This helps us to find out if there is an unique answer or not)
+Basically;
+
+if (TotalGas >= TotalCost)
+     we have an answer
+else 
+     return -1
+Observation 2
+If we cannot find a circle starting from station A and ending in station B means that any station between them (including A and B itself) cannot give the answer, so we don't need to check the stations between them again.
+
+C++ Implementation
+
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int sum = 0, size = gas.size(), answer = INT_MAX, curGas = 0;
+        for (int i = 0; i < gas.size(); i++) {
+            curGas += gas[i] - cost[i];
+            // Possible answer
+            if (curGas >= 0) {
+                answer = min(answer, i);
+            }
+            // Reset
+            else {
+                answer = INT_MAX;
+                curGas = 0;
+            }
+            sum += gas[i] - cost[i];
+        }
+        return (sum < 0) ? -1 : answer;
+    }
+};
