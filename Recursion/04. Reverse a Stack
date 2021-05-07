@@ -1,0 +1,23 @@
+void bottom(stack<int> &st,int t){
+    if(!st.empty()){
+        int temp=st.top();
+        st.pop();
+        bottom(st,t);
+        st.push(temp);
+        return;
+    }
+    else
+    {
+        st.push(t);
+        return;
+    }   
+ }
+void reverseStack(stack<int> &st) {
+    if(!st.empty()){
+        int t=st.top();
+        st.pop();
+        reverseStack(st);
+        bottom(st,t);
+    }
+    return;
+}
