@@ -1,0 +1,26 @@
+/* The below method sorts the stack s 
+you are required to complete the below method */
+void insert(stack<int> &s,int last){
+    if(s.empty()==1||last>s.top()){
+        s.push(last);
+        return;
+    }
+    
+    int t=s.top();
+    s.pop();
+    
+    insert(s,last);
+    
+    s.push(t);
+    return;
+}
+
+void SortedStack :: sort()
+{
+    if(s.size()==1) return;
+    int last=s.top();
+    s.pop();
+    sort();
+    insert(s,last);
+    return ;
+}
