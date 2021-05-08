@@ -1,0 +1,26 @@
+https://www.interviewbit.com/problems/subset/
+
+void subsetUtil(vector<int> &A, int N, int i, vector<vector<int>> &ans, vector<int> &arr) {
+    if(i==N) {
+        return;
+    }
+    
+    arr.push_back(A[i]);    
+    ans.push_back(arr);
+    subsetUtil(A,N,i+1,ans,arr); 
+    arr.pop_back();
+    subsetUtil(A,N,i+1,ans,arr);
+    return ;
+}
+
+vector<vector<int> > Solution::subsets(vector<int> &A) {
+    vector<vector<int>> ans;
+    vector<int> arr;
+    sort(A.begin(),A.end());
+    // ans[0].push_back(" ");
+    ans.push_back(arr);
+    subsetUtil(A,A.size(),0,ans,arr);
+    return ans;
+    
+    
+}
