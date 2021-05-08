@@ -1,0 +1,31 @@
+https://practice.geeksforgeeks.org/problems/subsets-1587115621/1#
+
+class Solution
+{
+    public:
+    //Function to find all possible unique subsets.
+    void solve(vector<int> &arr,vector<int> &v,set<vector<int>> &s,int n,int i){
+        if(i>=n) {
+            s.insert(v);
+            return;
+        }
+        v.push_back(arr[i]);
+        solve(arr,v,s,n,i+1);
+        v.pop_back();
+        solve(arr,v,s,n,i+1);
+        return;
+    }
+    vector<vector<int> > AllSubsets(vector<int> arr, int n)
+    {
+        vector<int>v;
+        vector<vector<int>> ans;
+        set<vector<int>> s;
+        sort(arr.begin(),arr.end());
+        solve(arr,v,s,n,0);
+        
+        for(auto a:s){
+            ans.push_back({a});
+        }
+        return ans;
+    }
+};
