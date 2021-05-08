@@ -1,5 +1,7 @@
 https://practice.geeksforgeeks.org/problems/permutation-with-spaces3627/1#
 
+ ##Same as Power Set But here we had used spaces as option
+
 void solve(string S,string op,vector<string> &v){
         
         if(S.size()==0){
