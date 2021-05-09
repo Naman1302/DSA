@@ -1,0 +1,34 @@
+https://leetcode.com/problems/letter-case-permutation/
+
+class Solution {
+public:
+    void solve(string S,string op,vector<string> &v){
+        if(S.length()==0){
+            v.push_back(op);
+            return;
+        }
+        
+        if(!isdigit(S[0]))
+        {
+            string op1=op;
+            string op2=op;
+            op2.push_back(tolower(S[0]));
+            op1.push_back(toupper(S[0]));
+            S.erase(S.begin()+0);
+            solve(S,op1,v);
+            solve(S,op2,v);
+        }   
+        else{
+            op.push_back(S[0]);
+            S.erase(S.begin()+0);
+            solve(S,op,v);
+        }
+        return;
+    }
+    vector<string> letterCasePermutation(string S) {
+        vector<string> v;
+        string op="";
+        solve(S,op,v);
+        return v;
+    }
+};
