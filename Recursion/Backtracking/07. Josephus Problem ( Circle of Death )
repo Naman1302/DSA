@@ -1,0 +1,33 @@
+https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle1840/1#
+
+class Solution {
+  public:
+    void solve(vector<int> &v,int key,int k,int &ans){
+        
+        //Base Cond. ==> last one is safe
+        
+        if(v.size()==1){
+            ans=v[0];
+            return;
+        }
+        
+        //Hypothesis ==> clear dead people and to get index when it get out of bound is to get % with size
+        
+        key=(key+k)%v.size();  // to get the index of dead
+        v.erase(v.begin()+key);
+        solve(v,key,k,ans);
+        
+        //Induction ==> none as nothing to be added after like in that sort array wala question
+        
+        return;
+    }
+    int safePos(int n, int k) {
+        vector<int> v;
+        int ans;
+        for(int i=0;i<n;i++){
+            v.push_back(i+1);
+        }
+        solve(v,0,k-1,ans);
+        return ans;
+    }
+};
