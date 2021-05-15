@@ -1,7 +1,7 @@
 
 class Solution {
 public:
-    int solve(vector<int> &nums,int sum,int n){
+    int solve(vector<int> &nums,int sum,int n,int zeros){
         int dp[n+1][sum+1];
         for(int i=0;i<=n;i++){
             for(int j=0;j<=sum;j++){
@@ -11,22 +11,24 @@ public:
                     dp[i][j]=0;
                 else{
                     if(nums[i-1]<=j)
-                        dp[i][j]=1+max(dp[i-1][j-nums[i-1]],dp[i-1][j]);
+                        dp[i][j]=dp[i-1][j-nums[i-1]]+dp[i-1][j];
                     else
                         dp[i][j]=dp[i-1][j];
                 }
             }
         }
-        return dp[n][sum];
+        return pow(2,zeros)*dp[n][sum];
     }
     int findTargetSumWays(vector<int>& nums, int target) {
-        int count=0;
+        int count=0,zeros=0;
         for(int i=0;i<nums.size();i++){
             count+=nums[i];
+            if(nums[i]==0)
+                zeros++;
         }
         if(target>count||(count+target)%2!=0)
             return 0;
         count=(target+count)/2;
-            return solve(nums,count,nums.size());
+            return solve(nums,count,nums.size(),zeros>1?zeros:0);
     }
 };
