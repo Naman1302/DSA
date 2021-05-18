@@ -1,0 +1,58 @@
+class Solution{
+public:
+    int solve(string s,int i,int j,bool istrue){
+        if(i>j)
+            return false;
+        if(i==j){
+            if(istrue){
+                if(s[i]=='T')
+                    return true;
+                else
+                    return false;
+            }
+            else{
+                if(s[i]=='F')
+                    return true;
+                else
+                    return false;
+            }
+        }    
+        int ans=0;
+        for(int k=i+1;k<=j-1;k=k+2){
+                
+            int lt=solve(s,i,k-1,true);
+            int lf=solve(s,i,k-1,false);
+            int rt=solve(s,k+1,j,true);
+            int rf=solve(s,k+1,j,false);
+                
+            if(s[k]=='^'){
+                if(istrue){
+                    ans+=lt*rf+rt*lf;
+                }
+                else{
+                    ans+=lt*rt+lf*rf;
+                }
+            }
+            else if(s[k]=='&'){
+                if(istrue){
+                    ans+=lt*rt;
+                }
+                else{
+                    ans+=lf*rt+rf*lt+lf*rf;
+                }
+            }
+            else{
+                if(istrue){
+                    ans+=lt*rt+lf*rt+rf*lt;
+                }
+                else
+                    ans+=lf*rf;
+            }
+        }
+        return ans;
+    }    
+    int countWays(int n, string S){
+        // code here
+        return solve(S,0,n-1,true);
+    }
+};
