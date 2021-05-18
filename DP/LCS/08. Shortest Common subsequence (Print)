@@ -7,7 +7,7 @@ public:
         
         //LCS==============
         
-        for(i=0;i<=n;i++){
+        for (i=0;i<=n;i++){
             for(j=0;j<=m;j++){
                 if(i==0||j==0)
                     dp[i][j]=0;
@@ -21,7 +21,7 @@ public:
         }
         
         //==============
-        
+        i=n;j=m;
         while(i>0 && j>0){
             if(s1[i-1]==s2[j-1]){
                 ans.push_back(s1[i-1]);
