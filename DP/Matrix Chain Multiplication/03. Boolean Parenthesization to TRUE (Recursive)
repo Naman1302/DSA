@@ -1,3 +1,4 @@
+//====================RECURSIVE====================
 class Solution{
 public:
     int solve(string s,int i,int j,bool istrue){
@@ -56,3 +57,102 @@ public:
         return solve(S,0,n-1,true);
     }
 };
+
+//================MEMOIZATION(3-D MATRIX)==================
+
+int dp[202][202][2];
+
+class Solution{
+public:
+    int solve(string s,int i,int j,int istrue){
+        if(i>j)
+            return dp[i][j][istrue]=0;
+        
+        if(i==j){
+            if(istrue){
+                if(s[i]=='T')
+                    return dp[i][j][istrue]=1;
+                else
+                    return dp[i][j][istrue]=0;
+            }
+            else{
+                if(s[i]=='F')
+                    return dp[i][i][istrue]=1;
+                else
+                    return dp[i][i][istrue]=0;
+            }
+        }    
+        
+        if(dp[i][j][istrue]!=-1)
+            return dp[i][j][istrue];
+            
+        int ans=0;
+        for(int k=i+1;k<=j-1;k+=2){
+            int lt,lf,rt,rf;
+        
+        //==========================
+        
+            if(dp[i][k-1][1]!=-1)
+                lt=dp[i][k-1][1];
+            else{
+                lt=solve(s,i,k-1,1);
+                dp[i][k-1][1]=lt;
+            }
+            
+            if(dp[i][k-1][0]!=-1)
+                lf=dp[i][k-1][0];
+            else{
+                lf=solve(s,i,k-1,0);
+                dp[i][k-1][0]=lf;
+            }
+            
+            if(dp[k+1][j][1]!=-1)
+                rt=dp[k+1][j][1];
+            else{
+                rt=solve(s,k+1,j,1);
+                dp[k+1][j][1]=rt;
+            }    
+            
+            if(dp[k+1][j][0]!=-1)
+                rf=dp[k+1][j][0];
+            else{
+                rf=solve(s,k+1,j,0);
+                dp[k+1][j][0]=rf;
+            }
+            
+        //============================
+        
+            if(s[k]=='^'){
+                if(istrue){
+                    ans+=lt*rf+rt*lf;
+                }
+                else{
+                    ans+=lt*rt+lf*rf;
+                }
+            }
+            else if(s[k]=='&'){
+                if(istrue){
+                    ans+=lt*rt;
+                }
+                else{
+                    ans+=lf*rt+rf*lt+lf*rf;
+                }
+            }
+            else{
+                if(istrue){
+                    ans+=lt*rt+lf*rt+rf*lt;
+                }
+                else
+                    ans+=lf*rf;
+            }
+        }
+        return dp[i][j][istrue]=ans%1003;
+    }    
+    int countWays(int n, string S){
+        // code here
+        memset(dp,-1,sizeof(dp));
+        return solve(S,0,n-1,1);
+    }
+};
+
+//===============MEMOIZATON(MAP)================
