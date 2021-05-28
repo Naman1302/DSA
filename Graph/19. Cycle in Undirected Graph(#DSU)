@@ -24,12 +24,12 @@ int Solution::solve(int a, vector<vector<int> > &B) {
 
 //=========Optimised=========
 
-vector<int> parent;
-
-struct node{
+struct cust{
     int baap;
     int rank;
 }
+
+vector<cust> parent;
 
 int find(int i){
     if(parent[i].baap==-1)
