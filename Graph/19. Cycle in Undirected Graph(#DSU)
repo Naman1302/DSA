@@ -1,0 +1,23 @@
+DSU= Disjoint Sets Union, herrre if sets aren't disjoint then there is a cycle else not
+
+int find(int i,vector<int> &parent){
+    if(parent[i]==-1)
+        return i;
+    else
+        return parent[i]=find(parent[i],parent);
+}
+
+
+int Solution::solve(int a, vector<vector<int> > &B) {
+    vector<int> parent(a+1,-1);
+    
+    for(int i=0;i<B.size();i++){
+        int u=find(B[i][0],parent);//finding the parent of one vertex in edge
+        int v=find(B[i][1],parent);//finding another vertex in edge
+        if(u==v)//if both hass same parent then there is a cycle as sets aren't disjoint
+            return 1;
+        else
+            parent[v]=u;  //union the both sets
+    }
+    return 0;
+}
