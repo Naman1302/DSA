@@ -1,4 +1,4 @@
-//Does the same thing as floyd warshall bbut all it does is one dfs => O(V+E) ,whereas floyd will take 2 DFS and 1 reversal of list (changing node dir) => O(3*(V+E))
+//Does the same thing as Kosaraju but all it does is one dfs => O(V+E) ,whereas Kosaraju's will take 2 DFS and 1 reversal of list (changing node dir) => O(3*(V+E))
 class Solution
 {
 	public:
