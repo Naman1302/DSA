@@ -1,0 +1,36 @@
+int minThrow(int n, int a[]){
+        // code here
+        vector<int> m(31,-1);
+        vector<bool> vis(31,false);
+        vector<int> step(31,0);
+        for(int i=0;i<2*n;i++){
+            m[a[i]]=a[i+1];
+            i++;
+        }
+        queue<pair<int,int>> q;
+        q.push({1,0});
+        pair<int,int> p;
+        vis[1]=true;
+        while(!q.empty()){
+            p=q.front();
+            int c=p.first;
+            int s=p.second;
+            if(c==30)
+                break;
+            q.pop();    
+            for(int j=c+1;j<=c+6 and j<=30;j++){
+                pair<int,int> pp;
+                if(!vis[j]){
+                    pp.second=s+1;
+                    vis[j]=true;
+                    if(m[j]==-1)
+                        pp.first=j;
+                    else
+                        pp.first=m[j];
+                    q.push(pp);    
+                }
+            }
+        }
+            
+        return p.second;
+    }
