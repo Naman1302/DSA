@@ -41,15 +41,9 @@ class Solution
 {
     public:
     //Function to return the level order traversal of a tree.
-    int height(Node* node){
-        if(node==NULL)
-        return 0;
-        return max(height(node->left),height(node->right))+1;
-    }
     vector<int> levelOrder(Node* node)
     {
       queue<Node*> q;
-      int h=height(node);
       q.push(node);
       vector<int> ans;
       while(!q.empty()){
