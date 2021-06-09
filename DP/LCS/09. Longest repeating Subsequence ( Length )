@@ -24,3 +24,37 @@
 		    }
 		    return dp[n][n];
 		}
+//A space Optimised version for this will has only 2 rows
+int Solution::anytwo(string A) {
+    int i,j;
+    int n=A.size();
+    int dp[2][n+1];
+    bool bi;
+    for(i=0;i<=n;i++)
+    {
+        bi=i&1;//checks for even and odd positions
+        for(j=0;j<=n;j++)
+        {
+            if(i==0||j==0)dp[bi][j]=0; //avg dp problem topdown
+            
+            else
+        	{
+            	if((A[i-1]==A[j-1]) && i!=j)
+            	{
+            	    dp[bi][j]=dp[1-bi][j-1]+1;//here it store ans for even postions at even row and odd postions at odd row
+            	    
+            	}
+            	else
+            	{
+            	    dp[bi][j]=max(dp[1-bi][j],dp[bi][j-1]);
+            	    
+            	}    
+        	}
+        }
+    }
+    
+    if( dp[n%2][n]>1)return 1;
+    return 0;
+    
+    
+}
