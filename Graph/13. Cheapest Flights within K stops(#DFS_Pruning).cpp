@@ -31,3 +31,36 @@ public:
         return fare==INT_MAX ? -1 :fare;
     }
 };
+//Bfs+heap
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+       
+//      this is adjancy list.
+        map<int, vector<pair<int, int>> > mp;
+        for(auto fl : flights){
+            mp[fl[0]].push_back({fl[1], fl[2]});
+        }
+       
+//      <cost, nodeId, number of stop>
+        priority_queue<array<int, 3> , vector<array<int, 3>>, greater<array<int,3>>> pq;
+        pq.push({0, src, 0});
+       
+        while(!pq.empty()){
+            auto tp = pq.top();
+            pq.pop();
+            int cost = tp[0];
+            int nodeID = tp[1];
+            int stop = tp[2];
+            if(nodeID == dst) return cost;
+            if(stop > K) continue;
+            for(auto p : mp[nodeID]){
+                int v = p.first;
+                int weight = p.second;
+                pq.push({cost+weight, v, stop+1});
+            }
+        }
+     
+        return -1;
+    }
+};
