@@ -11,7 +11,7 @@ string longestCommonSubstr (string s1, string s2, int n, int m)
                 else{
                     if(s1[i-1]==s2[j-1]){
                         dp[i][j]=1+dp[i-1][j-1];
-                        if(len<dp[i[j]){
+                        if(len<dp[i][j]){
                             len=dp[i][j]; //for finding length of common diagonal
                             row=i;  //these store diagonal values and for lcs the max len has some diagonally non zero values while calculation
                             col=j;
@@ -24,7 +24,7 @@ string longestCommonSubstr (string s1, string s2, int n, int m)
             }
         }
         while(dp[row][col]){
-            ans+=dp[row][col];
+            ans+=s1[row-1];
             row--;
             col--;
         }
