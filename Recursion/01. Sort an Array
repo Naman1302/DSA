@@ -1,3 +1,49 @@
+//Merge Sort
+
+class Solution {
+public:
+    void merger(vector<int> &a,int l,int m,int h){
+        int A[m-l+1],B[h-m];
+        for(int i=0;i<m-l+1;i++){
+            A[i]=a[l+i];
+        }
+        for(int i=0;i<h-m;i++){
+            B[i]=a[m+1+i];
+        }
+        int x=0,y=0,k=l;
+        while(x<m-l+1 && y<h-m){
+            if(A[x]<=B[y]){
+                a[k++]=A[x++];
+            }
+            else{
+                a[k++]=B[y++];
+            }
+        }
+        while(x<m-l+1){
+            a[k++]=A[x++];
+        }
+        while(y<h-m){
+            a[k++]=B[y++];
+        }
+        return;
+    }
+    void merge(vector<int> &a,int l,int h){
+        if(l>=h) return;
+        int m=l+((h-l)/2);
+        merge(a,l,m);
+        merge(a,m+1,h);
+        merger(a,l,m,h);
+        return;
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        int l=0,h=nums.size()-1;
+        merge(nums,l,h);
+        return nums;
+    }
+};
+
+//TLE Approach
+
 class Solution {
 public:
     void insert(vector<int> &a,int last){
