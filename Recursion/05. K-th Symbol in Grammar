@@ -2,12 +2,24 @@ https://leetcode.com/problems/k-th-symbol-in-grammar
 
 class Solution {
 public:
+     
+     /*
+        Observations :- 1. Har row double length ki h
+                        2. Har row ka pehla half pichli wala jesa same to same h
+                           i.e. kthGrammer(4,3) === kthGrammar(3,3) (i.e. kthGrammar(n-1,k) )
+                        3. Bacha hua half jo h woh compliment h pehle half ka
+                           i.e. kthGrammar(4,5) === kthGrammar(3,1) (i.e. kthGrammar(n-1,k-mid) ) 
+    */
+    
     int kthGrammar(int n, int k) {
-        if(n==1&&k==1) return 0;
-        int mid=pow(2,n-2);
+        if( n==1 && k==1 ) return 0;
+        
+        int mid = pow((2, n-1)) / 2;   //length of row = 2^(n-1) => mid=length/2;
+        
         if(k<=mid)
-            return kthGrammar(n-1,k);
+            return kthGrammar(n-1, k);
+        
         else
-            return !(kthGrammar(n-1,k-mid));
+            return !(kthGrammar(n-1, k-mid));
     }
 };
