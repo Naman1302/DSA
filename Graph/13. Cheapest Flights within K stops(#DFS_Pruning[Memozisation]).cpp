@@ -4,7 +4,7 @@
 */
 class Solution {
 public:
-    void solve(vector<pair<int,int>> adj[],vector<bool> &vis,int &fare,int cost,int src,int dest,int k){
+    /*void solve(vector<pair<int,int>> adj[],vector<bool> &vis,int &fare,int cost,int src,int dest,int k){
         if(k<-1) //yahaan k jo h woh do src and dest ke beech ke nodes h for eg:-    0   ->  1  ->2
                  //                                                               src,k=1   k=0   dest,k=-1
             return;
@@ -20,17 +20,32 @@ public:
         }
         vis[src]=false;//if not then usko unvisited kar diye
     }
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        vector<pair<int,int>> adj[n];
-        for(int i=0;i<flights.size();i++){
-            adj[flights[i][0]].push_back({flights[i][1],flights[i][2]});
+    TLE MILA
+    */
+    int dp[10001][101];
+    int solve(vector<pair<int,int>> g[],int s,int e,int k){
+        if(s==e) return 0;
+        if(k<=-1) return INT_MAX;
+        if(dp[s][k]!=-1) return dp[s][k];
+        int ans=INT_MAX;
+        for(auto x:g[s]){
+            int temp=solve(g,x.first,e,k-1);
+            if(temp!=INT_MAX)
+                ans=min(ans,x.second+temp);    
         }
-        vector<bool> vis(n+1,false);
-        int fare=INT_MAX;
-        solve(adj,vis,fare,0,src,dst,k);
-        return fare==INT_MAX ? -1 :fare;
+        return dp[s][k]=ans;
+    }
+    int findCheapestPrice(int n, vector<vector<int>>& f, int src, int dst, int k) {
+        vector<pair<int,int>> g[n];
+        for(auto x:f){
+            g[x[0]].push_back({x[1],x[2]});
+        }
+        memset(dp,-1,sizeof(dp));
+        int ans=solve(g,src,dst,k);
+        return ans==INT_MAX?-1:ans;
     }
 };
+    
 //Bfs+heap
 class Solution {
 public:
