@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool solve(vector<vector<int>> &g,vector<int> &c,int curr,int lp){
+        if(c[curr]==-1)
+            c[curr]=lp;
+        for(int i=0;i<g[curr].size();i++){
+            if(c[g[curr][i]]==-1 && !solve(g,c,g[curr][i],lp^1)){
+                return 0;
+            }
+            else if(c[curr]==c[g[curr][i]])
+                return 0; 
+        }
+        return 1;
+    }
+    bool isBipartite(vector<vector<int>>& g) {
+        vector<int> c(g.size(),-1);
+        for(int i=0;i<g.size();i++){
+            if(c[i]==-1 && !solve(g,c,i,0)){
+                return false;
+            }
+        }
+    return true;
+    }
+    
+};
