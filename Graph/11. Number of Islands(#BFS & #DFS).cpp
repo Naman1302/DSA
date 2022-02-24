@@ -1,3 +1,4 @@
+//BFS=> https://leetcode.com/problems/number-of-islands/discuss/56589/C%2B%2B-BFSDFS
 class Solution {
 public:
     void solve(vector<vector<char>> &g,int x,int y,int n,int m){
