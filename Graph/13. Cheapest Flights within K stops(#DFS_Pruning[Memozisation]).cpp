@@ -1,5 +1,6 @@
 /*
-   Here approach used is Dfs+Pruning(Though Slowest of em all but simplest)
+  https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/626208/Detailed-C%2B%2B-Standard-Approaches-DP-Approach-(DFS-with-memoization)-BFS
+  Here approach used is Dfs+Pruning(Though Slowest of em all but simplest)
                                |-> when we get answer from one route and other one is not suitble so, we reject that route
 */
 class Solution {
