@@ -1,3 +1,76 @@
+//https://leetcode.com/problems/min-cost-to-connect-all-points/
+
+class Solution {
+public:
+    int parent[1001];
+    int rank[1001]={1};
+    
+    //Personal Comparator	
+    
+    static bool comp(vector<int> a,vector<int> b){
+        return a[2]<b[2];
+    }
+	
+    //===================
+
+    //Finding parent of given node
+    
+    int find_p(int v){
+        if(parent[v]==-1)
+            return v;
+        else
+            return parent[v]=find_p(parent[v]);
+    }
+	
+    //============================	
+    
+    //======" UNION_OP "==========	
+    
+    void jod(int a,int b){
+        if(rank[a]>rank[b]){
+            parent[b]=a;
+        }
+        else if(rank[b]>rank[a]){
+            parent[a]=b;
+        }
+        else{
+            parent[a]=b;
+            rank[b]++;
+        }
+    }
+	
+    //============================	
+    int minCostConnectPoints(vector<vector<int>>& a) {
+        int sum=0;
+        memset(parent,-1,sizeof(parent));
+        vector<vector<int>> g;
+        for(int i=0;i<a.size();i++){
+            for(int j=i+1;j<a.size();j++){
+                int dist=abs(a[i][0]-a[j][0])+abs(a[i][1]-a[j][1]);
+                g.push_back({i,j,dist});
+            }
+        }
+        sort(g.begin(),g.end(),comp);
+        int i=0,j=0;
+        while(i<a.size() && j< g.size()){
+            int from_p=find_p(g[j][0]);
+            int dest_p=find_p(g[j][1]);
+            if(from_p==dest_p){
+                j++;
+                continue;
+            }
+            jod(from_p,dest_p);
+            sum+=g[j][2];
+            i++;
+        }
+        return sum;
+    }
+};
+
+//===================" End of Question "=====================
+
+
+//===================== " GFG CODE " ========================
 #include<bits/stdc++.h>
 using namespace std;
 
