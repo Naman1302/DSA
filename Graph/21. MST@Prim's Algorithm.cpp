@@ -1,3 +1,52 @@
+//Minimum cost to add all cities
+//  https://leetcode.com/problems/min-cost-to-connect-all-points
+
+class Solution {
+public:
+    //=========Finding minimum 'V'=======
+    int min_v(vector<int> key,vector<bool> mst){
+        int m=INT_MAX,m_i=0;
+        for(int i=0;i<key.size();i++){
+            if(key[i]<m && !mst[i]){
+                m_i=i;
+                m=key[i];
+            }
+        }
+        return m_i;
+    }
+    //====================================
+    int minCostConnectPoints(vector<vector<int>>& a) {
+        vector<pair<int,int>> g[a.size()];
+        for(int i=0;i<a.size();i++){
+            for(int j=i+1;j<a.size();j++){
+                int dist=abs(a[i][0]-a[j][0])+abs(a[i][1]-a[j][1]);
+                g[i].push_back({j,dist});
+                g[j].push_back({i,dist});
+            }
+        }
+        //only updated if value is less
+        vector<int> key(a.size(),INT_MAX);
+        key[0]=0;
+        //last filled is mst
+        vector<bool> mst(a.size(),false);
+        for(int i=0;i<a.size()-1/* kyunki last wale pe process karne ki jarurat nhi*/;i++){
+            int mini_v = min_v(key,mst);
+            //found minimum vertex
+            mst[mini_v]=true;
+            for(auto i:g[mini_v]){
+                if(mst[i.first]==false && key[i.first]>i.second ){
+                    key[i.first]=i.second;
+                }
+            }
+        }
+        int sum=0;
+        for(int i=1;i<key.size();i++){
+            sum+=key[i];
+        }
+        return sum;
+    }
+};
+
 //Adjacency List + Priority Queue
 #include<bits/stdc++.h>
 using namespace std;
