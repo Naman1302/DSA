@@ -1,3 +1,4 @@
+//BFS+some dp
 class Solution {
 public:
     
@@ -32,6 +33,44 @@ public:
                 }
             }
         }
+        return ans;
+    }
+};
+//DP Purely
+class Solution {
+public:
+    
+    vector<vector<int>> updateMatrix(vector<vector<int>>& m) {
+        vector<vector<int>> ans(m.size(),vector<int>(m[0].size(),INT_MAX-100000));
+        //top left se
+        for(int i=0;i<m.size();i++){
+            for(int j=0;j<m[0].size();j++){
+                if(m[i][j]==0){
+                    ans[i][j]=0;
+                }
+                else{
+                    if(i>0){
+                        ans[i][j]=min(ans[i][j],ans[i-1][j]+1);
+                    }
+                    if(j>0){
+                        ans[i][j]=min(ans[i][j],ans[i][j-1]+1);
+                    }
+                }
+            }
+        }
+        //bottom right se 
+        //islye ki maanlo mmain zero neeche ho aur ones saare upar
+        for(int i=m.size()-1;i>=0;i--){
+            for(int j=m[0].size()-1;j>=0;j--){
+                if(i<m.size()-1){
+                    ans[i][j]=min(ans[i][j],ans[i+1][j]+1);
+                }
+                if(j<m[0].size()-1){
+                    ans[i][j]=min(ans[i][j],ans[i][j+1]+1);
+                }
+            }
+        }
+        return ans;
         return ans;
     }
 };
