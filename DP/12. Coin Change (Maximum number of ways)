@@ -44,7 +44,7 @@ class Solution {
 
 //==================================
 
-//======1-D space optimization======
+//======2-D space optimization======
 
         /*int dp[1001][1001];
         long long int solve(int a[],int n,int s){
